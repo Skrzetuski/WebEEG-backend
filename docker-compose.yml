@@ -1,0 +1,47 @@
+services:
+  db:
+    image: postgres:15
+    restart: always
+    # volumes:
+    #   - postgres_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: noesisdb
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+    ports:
+      - "5432:5432"
+
+  frontend:
+    build:
+      context: ../WebEEG-front/
+      dockerfile: Dockerfile
+    working_dir: /app
+    volumes:
+      - ../WebEEG-front/noesis:/app
+      - /app/node_modules
+    ports:
+      - "5173:5173"
+    command: ["npm", "run", "dev"]
+
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./app:/app
+    ports:
+      - "8000:8000"
+    command: ["/app/start.sh"]
+    environment:
+      WATCHFILES_FORCE_POLLING: true
+      DATABASE_URL: db
+      DATABASE_USER: postgres
+      DATABASE_PASSWORD: password
+      DATABASE_NAME: noesisdb
+      DATABASE_PORT: 5432
+      
+    depends_on:
+      - db
+
+# volumes:
+#   postgres_data:
