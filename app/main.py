@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from config import settings
 from api import auth
+from api import eeg
 from startup import lifespan
 
 app = FastAPI(
@@ -19,4 +20,4 @@ app.add_middleware(
 )
 
 app.include_router(auth.router, prefix="/auth", tags=["Auth"])
-
+app.include_router(eeg.router)  
