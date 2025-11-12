@@ -1,4 +1,15 @@
 services:
+  nginx:
+    image: nginx:alpine
+    container_name: local-proxy
+    ports:
+      - "443:443"
+    volumes:
+      - ./certs/nginx.conf:/etc/nginx/conf.d/default.conf:ro
+      - ./certs:/etc/nginx/certs:ro # Dev-only self-signed certs
+    depends_on:
+      - frontend
+      - backend
   db:
     image: postgres:15
     restart: always
@@ -22,7 +33,7 @@ services:
     ports:
       - "5173:5173"
     environment:
-      - VITE_BACKEND_URL=http://0.0.0.0:8000/
+      - VITE_BACKEND_URL=https://localhost/api/
     command: ["npm", "run", "dev"]
 
   backend:

@@ -1,3 +1,7 @@
+## SSL Certificates
+These certificates are self-signed and intended **only for local development**.
+Do not use them in production.
+
 # 🧠 Noesis — Backend Systemu do Analizy EEG
 
 Serwerowa część aplikacji do analizy fal mózgowych EEG, zbudowana jako API wspierające logikę biznesową, autoryzację i komunikację z bazą danych.
