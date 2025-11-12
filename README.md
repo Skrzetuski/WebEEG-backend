@@ -1,6 +1,8 @@
 ## SSL Certificates
 These certificates are self-signed and intended **only for local development**.
-Do not use them in production.
+Do not use them in production. 
+These certificates were generated locally with: openssl req -x509 -newkey rsa:2048 -nodes -days 365 -keyout certs/key.pem -out certs/cert.pem -subj "/CN=localhost"
+
 
 # 🧠 Noesis — Backend Systemu do Analizy EEG
 
